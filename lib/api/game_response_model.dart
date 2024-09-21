@@ -180,7 +180,7 @@ class Result {
   List<Store> stores;
   dynamic clip;
   List<Genre> tags;
-  EsrbRating esrbRating;
+  // dynamic esrbRating;
   List<ShortScreenshot> shortScreenshots;
 
   Result({
@@ -211,7 +211,7 @@ class Result {
     required this.stores,
     required this.clip,
     required this.tags,
-    required this.esrbRating,
+    // required this.esrbRating,
     required this.shortScreenshots,
   });
 
@@ -243,7 +243,7 @@ class Result {
     stores: List<Store>.from(json["stores"].map((x) => Store.fromJson(x))),
     clip: json["clip"],
     tags: List<Genre>.from(json["tags"].map((x) => Genre.fromJson(x))),
-    esrbRating: EsrbRating.fromJson(json["esrb_rating"]),
+    // esrbRating: EsrbRating.fromJson(json["esrb_rating"]),
     shortScreenshots: List<ShortScreenshot>.from(json["short_screenshots"].map((x) => ShortScreenshot.fromJson(x))),
   );
 
@@ -275,7 +275,7 @@ class Result {
     "stores": List<dynamic>.from(stores.map((x) => x.toJson())),
     "clip": clip,
     "tags": List<dynamic>.from(tags.map((x) => x.toJson())),
-    "esrb_rating": esrbRating.toJson(),
+    // "esrb_rating": esrbRating.toJson(),
     "short_screenshots": List<dynamic>.from(shortScreenshots.map((x) => x.toJson())),
   };
 }

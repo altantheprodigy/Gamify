@@ -9,11 +9,11 @@ SearchGameResponseModel searchGameResponseModelFromJson(String str) => SearchGam
 String searchGameResponseModelToJson(SearchGameResponseModel data) => json.encode(data.toJson());
 
 class SearchGameResponseModel {
-  dynamic count;
-  dynamic next;
+  int count;
+  String next;
   dynamic previous;
   List<Result> results;
-  dynamic userPlatforms;
+  bool userPlatforms;
 
   SearchGameResponseModel({
     required this.count,
@@ -44,9 +44,9 @@ class Result {
   String slug;
   String name;
   int playtime;
-  List<Platform> platforms;
+  List<Platform>? platforms;
   List<Store>? stores;
-  DateTime released;
+  DateTime? released;
   bool tba;
   dynamic backgroundImage;
   double rating;
@@ -56,7 +56,7 @@ class Result {
   int reviewsTextCount;
   int added;
   AddedByStatus? addedByStatus;
-  int? metacritic;
+  dynamic metacritic;
   int suggestionsCount;
   DateTime updated;
   int id;
@@ -70,7 +70,7 @@ class Result {
   Color saturatedColor;
   Color dominantColor;
   List<ShortScreenshot> shortScreenshots;
-  List<Platform> parentPlatforms;
+  List<Platform>? parentPlatforms;
   List<Genre> genres;
 
   Result({
@@ -103,7 +103,7 @@ class Result {
     required this.saturatedColor,
     required this.dominantColor,
     required this.shortScreenshots,
-    required this.parentPlatforms,
+    this.parentPlatforms,
     required this.genres,
   });
 
@@ -111,9 +111,9 @@ class Result {
     slug: json["slug"],
     name: json["name"],
     playtime: json["playtime"],
-    platforms: List<Platform>.from(json["platforms"].map((x) => Platform.fromJson(x))),
+    platforms: json["platforms"] == null ? [] : List<Platform>.from(json["platforms"]!.map((x) => Platform.fromJson(x))),
     stores: json["stores"] == null ? [] : List<Store>.from(json["stores"]!.map((x) => Store.fromJson(x))),
-    released: DateTime.parse(json["released"]),
+    released: json["released"] == null ? null : DateTime.parse(json["released"]),
     tba: json["tba"],
     backgroundImage: json["background_image"],
     rating: json["rating"]?.toDouble(),
@@ -137,7 +137,7 @@ class Result {
     saturatedColor: colorValues.map[json["saturated_color"]]!,
     dominantColor: colorValues.map[json["dominant_color"]]!,
     shortScreenshots: List<ShortScreenshot>.from(json["short_screenshots"].map((x) => ShortScreenshot.fromJson(x))),
-    parentPlatforms: List<Platform>.from(json["parent_platforms"].map((x) => Platform.fromJson(x))),
+    parentPlatforms: json["parent_platforms"] == null ? [] : List<Platform>.from(json["parent_platforms"]!.map((x) => Platform.fromJson(x))),
     genres: List<Genre>.from(json["genres"].map((x) => Genre.fromJson(x))),
   );
 
@@ -145,9 +145,9 @@ class Result {
     "slug": slug,
     "name": name,
     "playtime": playtime,
-    "platforms": List<dynamic>.from(platforms.map((x) => x.toJson())),
+    "platforms": platforms == null ? [] : List<dynamic>.from(platforms!.map((x) => x.toJson())),
     "stores": stores == null ? [] : List<dynamic>.from(stores!.map((x) => x.toJson())),
-    "released": "${released.year.toString().padLeft(4, '0')}-${released.month.toString().padLeft(2, '0')}-${released.day.toString().padLeft(2, '0')}",
+    "released": "${released!.year.toString().padLeft(4, '0')}-${released!.month.toString().padLeft(2, '0')}-${released!.day.toString().padLeft(2, '0')}",
     "tba": tba,
     "background_image": backgroundImage,
     "rating": rating,
@@ -171,22 +171,22 @@ class Result {
     "saturated_color": colorValues.reverse[saturatedColor],
     "dominant_color": colorValues.reverse[dominantColor],
     "short_screenshots": List<dynamic>.from(shortScreenshots.map((x) => x.toJson())),
-    "parent_platforms": List<dynamic>.from(parentPlatforms.map((x) => x.toJson())),
+    "parent_platforms": parentPlatforms == null ? [] : List<dynamic>.from(parentPlatforms!.map((x) => x.toJson())),
     "genres": List<dynamic>.from(genres.map((x) => x.toJson())),
   };
 }
 
 class AddedByStatus {
-  int? yet;
-  int? owned;
-  int? beaten;
-  int? toplay;
-  int? dropped;
-  int? playing;
+  dynamic yet;
+  dynamic owned;
+  dynamic beaten;
+  dynamic toplay;
+  dynamic dropped;
+  dynamic playing;
 
   AddedByStatus({
-    this.yet,
-    this.owned,
+    required this.yet,
+    required this.owned,
     this.beaten,
     this.toplay,
     this.dropped,
