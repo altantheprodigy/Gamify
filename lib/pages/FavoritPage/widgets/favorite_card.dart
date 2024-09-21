@@ -55,39 +55,12 @@ class FavoriteCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            gameName,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: AppTextStyle()
-                                .descriptionBold(context, AppColors.fontAppBar),
-                          ),
-                        ),
-                        Obx(() => IconButton(
-                            onPressed: () {
-                              favoritePageController.tapLike(
-                                Favorite(
-                                    id: id,
-                                    title: gameName,
-                                    rating: rating,
-                                    image: imagePath,
-                                    released: releaseDate.toString(),
-                              ));
-                            },
-                            icon: Icon(
-                              favoritePageController
-                                  .checkFavorite(id)
-                                  .value
-                                  ? Icons.favorite_rounded
-                                  : Icons.favorite_outline_rounded,
-                              color: AppColors.hargaStat,
-                              size: 20,
-                            )))
-                      ],
+                    Text(
+                      gameName,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyle()
+                          .descriptionBold(context, AppColors.fontAppBar),
                     ),
                     Text(
                       DateFormat('dd-MM-yyyy').format(releaseDate),
@@ -113,7 +86,27 @@ class FavoriteCard extends StatelessWidget {
                       ].withSpaceBetween(width: 5),
                     )
                   ],
-                ))
+                )),
+            Obx(() => IconButton(
+                onPressed: () {
+                  favoritePageController.tapLike(
+                      Favorite(
+                        id: id,
+                        title: gameName,
+                        rating: rating,
+                        image: imagePath,
+                        released: releaseDate.toString(),
+                      ));
+                },
+                icon: Icon(
+                  favoritePageController
+                      .checkFavorite(id)
+                      .value
+                      ? Icons.favorite_rounded
+                      : Icons.favorite_outline_rounded,
+                  color: AppColors.hargaStat,
+                  size: 20,
+                ))),
           ].withSpaceBetween(width: 10),
         ),
       ),

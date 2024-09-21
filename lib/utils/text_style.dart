@@ -4,7 +4,7 @@ class AppTextStyle {
   TextStyle descriptionBold(BuildContext context, Color color) {
     return TextStyle(
       color: color,
-      fontSize: 12,
+      fontSize: 15,
       fontFamily: "Poppins",
       fontWeight: FontWeight.w600,
       decoration: TextDecoration.none,
