@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gamify/api/favorite_model.dart';
 import 'package:gamify/pages/DetailPage/detail_page_controller.dart';
+import 'package:gamify/pages/FavoritPage/favorite_page_controller.dart';
 import 'package:gamify/utils/app_responsive.dart';
 import 'package:gamify/utils/color.dart';
 import 'package:gamify/utils/common_app_bar.dart';
@@ -13,6 +15,8 @@ class DetailPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FavoritePageController favoritePageController =
+        Get.put(FavoritePageController());
     final controller = Get.put(DetailPageController());
     return Scaffold(
       appBar: CommonAppBar(
@@ -59,15 +63,30 @@ class DetailPageView extends StatelessWidget {
                               gameDetail.developers
                                   .map((developer) => developer.name)
                                   .join(", "),
-                              style: AppTextStyle()
-                                  .descriptionBold(context, AppColors.background),
+                              style: AppTextStyle().descriptionBold(
+                                  context, AppColors.background),
                             ),
                           ),
-                          Icon(
-                            Icons.favorite,
-                            size: 25,
-                            color: AppColors.hargaStat,
-                          ),
+                          Obx(() => IconButton(
+                              onPressed: () {
+                                favoritePageController.tapLike(
+                                  Favorite(
+                                      id: gameDetail.id,
+                                      title: gameDetail.name,
+                                      rating: gameDetail.rating.toString(),
+                                      image: gameDetail.backgroundImage,
+                                      released: gameDetail.released.toString()),
+                                );
+                              },
+                              icon: Icon(
+                                favoritePageController
+                                        .checkFavorite(gameDetail.id)
+                                        .value
+                                    ? Icons.favorite_rounded
+                                    : Icons.favorite_outline_rounded,
+                                color: AppColors.hargaStat,
+                                size: 20,
+                              )))
                         ],
                       ),
                       Text(
