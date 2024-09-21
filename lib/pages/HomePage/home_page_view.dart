@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gamify/pages/HomePage/home_page_controller.dart';
 import 'package:gamify/pages/HomePage/widgets/home_card.dart';
+import 'package:gamify/pages/SearchPage/search_page_controller.dart';
 import 'package:gamify/utils/app_responsive.dart';
 import 'package:gamify/utils/color.dart';
+import 'package:gamify/utils/common_app_bar.dart';
 import 'package:gamify/utils/extension.dart';
 import 'package:gamify/utils/text_style.dart';
 import 'package:get/get.dart';
@@ -18,14 +20,19 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SeacrhPageController searchController =
+    Get.put(SeacrhPageController());
     final controller = Get.put(HomePageController());
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Games For You",
-          style: TextStyle(color: Colors.white),
-        ),
         backgroundColor: AppColors.background,
+        surfaceTintColor: AppColors.background,
+        elevation: null,
+        title: Text(
+            "Games For You",
+            style: AppTextStyle().descriptionBold(context, AppColors.fontAppBar)
+        ),
+        centerTitle: true,
       ),
       floatingActionButton: Container(
         margin: const EdgeInsets.only(bottom: 10),
@@ -66,7 +73,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   Expanded(
                       child: TextField(
-                        controller: controller.queryController,
+                        controller: searchController.queryController,
                     style: AppTextStyle()
                         .descriptionBold(context, AppColors.background),
                     decoration: InputDecoration(
@@ -92,9 +99,11 @@ class HomePage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                     child: GestureDetector(
                       onTap: () async {
-                        if(controller.queryController.text.isNotEmpty) {
-                          String query = controller.queryController.text;
-                          await controller.searchData(query);
+                        if(searchController.queryController.text.length > 3) {
+                          String query = searchController.queryController.text;
+                          Get.toNamed("/search-page");
+                          await searchController.searchData(query);
+                          searchController.queryController.clear();
                         } else {
                           await controller.loadData();
                         }

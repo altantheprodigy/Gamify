@@ -6,9 +6,15 @@ import 'package:gamify/pages/FavoritPage/favorite_page_view.dart';
 import 'package:gamify/pages/HomePage/home_page_binding.dart';
 import 'package:gamify/pages/HomePage/home_page_view.dart';
 import 'package:gamify/pages/HomePage/widgets/home_card.dart';
+import 'package:gamify/pages/SearchPage/search_page_binding.dart';
+import 'package:gamify/pages/SearchPage/search_page_view.dart';
 import 'package:get/get.dart';
 
-void main() {
+import 'db/db_helper.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await DbHelper.initDb();
   runApp(const MyApp());
 }
 
@@ -37,6 +43,10 @@ class MyApp extends StatelessWidget {
             name: "/favorit-page",
             page: () => const FavoritePageView(),
             binding: FavoritePageBinding()),
+        GetPage(
+            name: "/search-page",
+            page: () => const SearchPageView(),
+            binding: SeacrhPageBinding()),
       ],
     );
   }

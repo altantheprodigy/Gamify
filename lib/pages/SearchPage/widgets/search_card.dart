@@ -1,8 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:gamify/api/favorite_model.dart';
-import 'package:gamify/pages/FavoritPage/favorite_page_controller.dart';
 import 'package:gamify/utils/app_responsive.dart';
 import 'package:gamify/utils/color.dart';
 import 'package:gamify/utils/extension.dart';
@@ -10,13 +6,13 @@ import 'package:gamify/utils/text_style.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class FavoriteCard extends StatelessWidget {
+class SearchPageCard extends StatelessWidget {
   final String gameName;
   final int id;
   final DateTime releaseDate;
   final String imagePath;
-  final String rating;
-  const FavoriteCard(
+  final double rating;
+  const SearchPageCard(
       {super.key,
         required this.gameName,
         required this.releaseDate,
@@ -25,8 +21,6 @@ class FavoriteCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final FavoritePageController favoritePageController =
-    Get.put(FavoritePageController());
     return GestureDetector(
       onTap: (){
         Get.toNamed("/detail-page", arguments: id);
@@ -44,8 +38,8 @@ class FavoriteCard extends StatelessWidget {
               width: AppResponsive().screenWidth(context) * 0.30,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12.0),
-                child: Image.file(
-                  File(imagePath),
+                child: Image.network(
+                  imagePath,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -53,41 +47,13 @@ class FavoriteCard extends StatelessWidget {
             Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            gameName,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: AppTextStyle()
-                                .descriptionBold(context, AppColors.fontAppBar),
-                          ),
-                        ),
-                        Obx(() => IconButton(
-                            onPressed: () {
-                              favoritePageController.tapLike(
-                                Favorite(
-                                    id: id,
-                                    title: gameName,
-                                    rating: rating,
-                                    image: imagePath,
-                                    released: releaseDate.toString(),
-                              ));
-                            },
-                            icon: Icon(
-                              favoritePageController
-                                  .checkFavorite(id)
-                                  .value
-                                  ? Icons.favorite_rounded
-                                  : Icons.favorite_outline_rounded,
-                              color: AppColors.hargaStat,
-                              size: 20,
-                            )))
-                      ],
+                    Text(
+                      gameName,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyle()
+                          .descriptionBold(context, AppColors.fontAppBar),
                     ),
                     Text(
                       DateFormat('dd-MM-yyyy').format(releaseDate),
@@ -100,7 +66,7 @@ class FavoriteCard extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.star,
-                          size: 15,
+                          size: 20,
                           color: AppColors.bintang,
                         ),
                         Text(
