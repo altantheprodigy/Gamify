@@ -99,7 +99,7 @@ class HomePage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                     child: GestureDetector(
                       onTap: () async {
-                        if(searchController.queryController.text.isNotEmpty) {
+                        if(searchController.queryController.text.length > 3) {
                           String query = searchController.queryController.text;
                           Get.toNamed("/search-page");
                           await searchController.searchData(query);

@@ -47,32 +47,30 @@ class SearchPageView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
-                      Icons.favorite_rounded,
+                      Icons.gamepad,
                       color: Colors.red,
                       size: 72,
                     ),
                     Text(
-                      'No Favorite Item',
+                      'No Item',
                       style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
                     ),
                   ],
                 ),
               );
             } else {
-              return Expanded(
-                child: ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (BuildContext context, int index) {
-                    final game = controller.listGame[index];
-                    return SearchPageCard(
-                      id: game.id,
-                      gameName: game.name,
-                      releaseDate: game.released,
-                      imagePath: game.backgroundImage,
-                      rating: game.rating,
-                    );
-                  },
-                ),
+              return ListView.builder(
+                itemCount: 10,
+                itemBuilder: (BuildContext context, int index) {
+                  final game = controller.listGame[index];
+                  return SearchPageCard(
+                    id: game.id,
+                    gameName: game.name,
+                    releaseDate: game.released,
+                    imagePath: game.backgroundImage,
+                    rating: game.rating,
+                  );
+                },
               );
             }
           }),

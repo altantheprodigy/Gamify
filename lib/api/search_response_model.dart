@@ -48,7 +48,7 @@ class Result {
   List<Store>? stores;
   DateTime released;
   bool tba;
-  String backgroundImage;
+  dynamic backgroundImage;
   double rating;
   int ratingTop;
   List<Rating> ratings;
@@ -376,7 +376,7 @@ class Tag {
   String slug;
   Language language;
   int gamesCount;
-  String imageBackground;
+  dynamic imageBackground;
 
   Tag({
     required this.id,
