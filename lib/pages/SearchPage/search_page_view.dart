@@ -60,14 +60,14 @@ class SearchPageView extends StatelessWidget {
               );
             } else {
               return ListView.builder(
-                itemCount: 10,
+                itemCount: controller.listGame.length,
                 itemBuilder: (BuildContext context, int index) {
                   final game = controller.listGame[index];
                   return SearchPageCard(
                     id: game.id,
                     gameName: game.name,
-                    releaseDate: game.released,
-                    imagePath: game.backgroundImage,
+                    releaseDate: game.released ?? DateTime.now(),
+                    imagePath: game.backgroundImage ?? "http://via.placeholder.com/1280x720",
                     rating: game.rating,
                   );
                 },
