@@ -1,14 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gamify/pages/HomePage/home_page_controller.dart';
-import 'package:gamify/pages/HomePage/widgets/home_card.dart';
 import 'package:gamify/pages/SearchPage/search_page_controller.dart';
 import 'package:gamify/utils/app_responsive.dart';
-import 'package:gamify/utils/color.dart';
-import 'package:gamify/utils/common_app_bar.dart';
 import 'package:gamify/utils/extension.dart';
-import 'package:gamify/utils/text_style.dart';
 import 'package:get/get.dart';
+import 'package:gamify/pages/HomePage/home_page_controller.dart';
+import 'package:gamify/pages/HomePage/widgets/home_card.dart';
+import 'package:gamify/utils/color.dart';
+import 'package:gamify/utils/text_style.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -21,16 +19,17 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SeacrhPageController searchController =
-    Get.put(SeacrhPageController());
-    final controller = Get.put(HomePageController());
+        Get.put(SeacrhPageController());
+    final HomePageController controller = Get.put(HomePageController());
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.background,
         surfaceTintColor: AppColors.background,
         elevation: null,
         title: Text(
-            "Games For You",
-            style: AppTextStyle().descriptionBold(context, AppColors.fontAppBar)
+          "Games For You",
+          style: AppTextStyle().descriptionBold(context, AppColors.fontAppBar),
         ),
         centerTitle: true,
       ),
@@ -72,34 +71,37 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
-                      child: TextField(
-                        controller: searchController.queryController,
-                    style: AppTextStyle()
-                        .descriptionBold(context, AppColors.cardIconFill),
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(
-                        vertical: 10,
-                        horizontal: 10,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(6),
-                        borderSide: BorderSide.none,
-                      ),
-                      filled: true,
-                      fillColor: AppColors.background,
-                      hintText: 'Cari Game...',
-                      hintStyle: AppTextStyle()
+                    child: TextField(
+                      controller: searchController.queryController,
+                      style: AppTextStyle()
                           .descriptionBold(context, AppColors.cardIconFill),
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 10,
+                          horizontal: 10,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6),
+                          borderSide: BorderSide.none,
+                        ),
+                        filled: true,
+                        fillColor: AppColors.background,
+                        hintText: 'Cari Game...',
+                        hintStyle: AppTextStyle()
+                            .descriptionBold(context, AppColors.cardIconFill),
+                      ),
                     ),
-                  )),
+                  ),
                   Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: AppColors.background),
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      borderRadius: BorderRadius.circular(8),
+                      color: AppColors.background,
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
                     child: GestureDetector(
                       onTap: () async {
-                        if(searchController.queryController.text.length >= 3) {
+                        if (searchController.queryController.text.length >= 3) {
                           String query = searchController.queryController.text;
                           Get.toNamed("/search-page");
                           await searchController.searchData(query);
@@ -121,7 +123,7 @@ class HomePage extends StatelessWidget {
                 if (controller.isLoading.value) {
                   return SizedBox(
                     height: AppResponsive().screenHeight(context) * 0.4,
-                    child:  Center(
+                    child: Center(
                       child: CircularProgressIndicator(
                         color: AppColors.hargaStat,
                       ),
@@ -134,6 +136,7 @@ class HomePage extends StatelessWidget {
                 } else {
                   return Expanded(
                     child: ListView.builder(
+                      controller: controller.scrollController,
                       itemCount: controller.listGame.length,
                       itemBuilder: (BuildContext context, int index) {
                         final game = controller.listGame[index];
