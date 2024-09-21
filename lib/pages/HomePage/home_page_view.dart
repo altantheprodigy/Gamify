@@ -75,7 +75,7 @@ class HomePage extends StatelessWidget {
                       child: TextField(
                         controller: searchController.queryController,
                     style: AppTextStyle()
-                        .descriptionBold(context, AppColors.background),
+                        .descriptionBold(context, AppColors.cardIconFill),
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(
                         vertical: 10,
@@ -86,16 +86,16 @@ class HomePage extends StatelessWidget {
                         borderSide: BorderSide.none,
                       ),
                       filled: true,
-                      fillColor: AppColors.cardIconFill,
+                      fillColor: AppColors.background,
                       hintText: 'Cari Game...',
                       hintStyle: AppTextStyle()
-                          .descriptionBold(context, AppColors.background),
+                          .descriptionBold(context, AppColors.cardIconFill),
                     ),
                   )),
                   Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        color: AppColors.cardIconFill),
+                        color: AppColors.background),
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                     child: GestureDetector(
                       onTap: () async {
@@ -111,7 +111,7 @@ class HomePage extends StatelessWidget {
                       child: Icon(
                         Icons.search,
                         size: 20,
-                        color: AppColors.background,
+                        color: AppColors.cardIconFill,
                       ),
                     ),
                   )
