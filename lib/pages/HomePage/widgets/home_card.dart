@@ -25,7 +25,12 @@ class HomePageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Get.toNamed("/detail-page", arguments: id);
+        Navigator.pushNamed(
+          context,
+          '/detail-page', // Pastikan rute ini sudah terdaftar
+          arguments: id, // Kirim id sebagai argumen
+        );
+        // Get.toNamed("/detail-page", arguments: id);
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 7),
